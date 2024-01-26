@@ -33,4 +33,4 @@ jobs:
           script: |
             cd /var/www/swm
             ng build
-            cp -a docs/. /var/www/html/
+            cp -a /var/www/swm/docs/. /var/www/html/
