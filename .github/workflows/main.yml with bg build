@@ -22,4 +22,8 @@ jobs:
           key: ${{ secrets.KEY }}
           source: "."
           target: "/var/www/swm"
+          script: |
+            cd /var/www/swm
+            ng build
+            cp -a /var/www/swm/docs/. /var/www/html/
 
