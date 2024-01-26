@@ -22,9 +22,17 @@ jobs:
           key: ${{ secrets.KEY }}
           source: "."
           target: "/var/www/swm"
+
+      - name: SSH into EC2 and run commands
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          port: ${{ secrets.PORT }}
+          key: ${{ secrets.KEY }}
           script: |
-                sudo tar -czf /var/www/swm/app.tar.gz .
-                sudo tar -xzf /var/www/swm/app.tar.gz -C /var/www/swm
-                cd /var/www/swm
-                ng build
-                cp -a /var/www/swm/docs/. /var/www/html/
+            cd /var/www/swm
+            sudo tar -czf app.tar.gz .
+            sudo tar -xzf app.tar.gz -C /var/www/swm
+            ng build
+            sudo cp -a /var/www/swm/docs/. /var/www/html/
