@@ -13,7 +13,7 @@ jobs:
       - name: Checkout the files
         uses: actions/checkout@v2
 
-      - name: Code Copy to EC2
+      - name: Git Code Copy to EC2 dir
         uses: appleboy/scp-action@master
         with:
           host: ${{ secrets.HOST }}
@@ -22,6 +22,15 @@ jobs:
           key: ${{ secrets.KEY }}
           source: "."
           target: "/var/www/swm"
+
+      
+      - name: SSH into EC2 and run commands
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          port: ${{ secrets.PORT }}
+          key: ${{ secrets.KEY }}
           script: |
             cd /var/www/swm
             ng build
